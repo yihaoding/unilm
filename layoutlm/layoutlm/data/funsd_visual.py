@@ -133,7 +133,7 @@ def convert_examples_to_features(
             tokens.extend(word_tokens)
             token_boxes.extend([box] * len(word_tokens))
             # tokens in one bounding box share one visual feature
-            visual_features.extend(visual_feature*len(word_tokens))
+            visual_features.extend([visual_feature]*len(word_tokens))
             # Use the real label id for the first token of the word, and padding ids for the remaining tokens
             label_ids.extend(
                 [label_map[label]] + [pad_token_label_id] * (len(word_tokens) - 1)
@@ -223,6 +223,7 @@ def convert_examples_to_features(
         assert len(label_ids) == max_seq_length
         assert len(token_boxes) == max_seq_length
         # check length of visual_feature
+        print(len(visual_features))
         assert len(visual_features) == max_seq_length
 
         if ex_index < 5:
