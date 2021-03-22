@@ -81,7 +81,36 @@ class FunsdDataset(Dataset):
             self.all_bboxes[index],
             self.all_visual_features[index],
         )
+    
+class InputFeatures(object):
+    """A single set of features of data."""
 
+    def __init__(
+        self,
+        input_ids,
+        input_mask,
+        segment_ids,
+        label_ids,
+        boxes,
+        visual_features,
+        file_name,
+        page_size,
+    ):
+        assert (
+            0 <= all(boxes) <= 1000
+        ), "Error with input bbox ({}): the coordinate value is not between 0 and 1000".format(
+            boxes
+        )
+        self.input_ids = input_ids
+        self.input_mask = input_mask
+        self.segment_ids = segment_ids
+        self.label_ids = label_ids
+        self.boxes = boxes
+        self.visual_features = visual_features
+        self.file_name = file_name
+        self.page_size = page_size
+        
+        
 def convert_examples_to_features(
     examples,
     label_list,
