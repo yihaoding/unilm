@@ -141,6 +141,7 @@ def convert_examples_to_features(
 
     features = []
     for (ex_index, example) in enumerate(examples):
+        print(ex_index)
         file_name = example.file_name
         page_size = example.page_size
         width, height = page_size
@@ -164,8 +165,6 @@ def convert_examples_to_features(
             visual_features.extend([visual_feature]*len(word_tokens))
             # Use the real label id for the first token of the word, and padding ids for the remaining tokens
             label_ids.extend([label_map[label]] * len(word_tokens) )
-        print(len(visual_features))
-        print(len(label_ids))
         # Account for [CLS] and [SEP] with "- 2" and with "- 3" for RoBERTa.
         special_tokens_count = 3 if sep_token_extra else 2
         if len(tokens) > max_seq_length - special_tokens_count:
@@ -247,8 +246,6 @@ def convert_examples_to_features(
         assert len(input_ids) == max_seq_length
         assert len(input_mask) == max_seq_length
         assert len(segment_ids) == max_seq_length
-        print('label_length')
-        print(len(label_ids))
         assert len(label_ids) == max_seq_length
         assert len(token_boxes) == max_seq_length
         # check length of visual_feature
