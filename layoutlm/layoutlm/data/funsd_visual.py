@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 
 class FunsdDataset(Dataset):
-    def __init__(self, args, examples, tokenizer, labels, pad_token_label_id, mode):
+    def __init__(self, args, tokenizer, labels, pad_token_label_id, mode):
         print(mode)
         if args.local_rank not in [-1, 0] and mode == "train":
             torch.distributed.barrier()  # Make sure only the first process in distributed training process the dataset, and the others will use the cache
@@ -28,7 +28,7 @@ class FunsdDataset(Dataset):
         else:
             logger.info("Creating features from dataset file at %s", args.data_dir)
             features = convert_examples_to_features(
-                examples,
+                args.examples,
                 labels,
                 args.max_seq_length,
                 tokenizer,
