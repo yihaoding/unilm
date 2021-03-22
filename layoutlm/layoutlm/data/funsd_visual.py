@@ -9,7 +9,6 @@ logger = logging.getLogger(__name__)
 
 class FunsdDataset(Dataset):
     def __init__(self, args, tokenizer, labels, pad_token_label_id, mode):
-        print(mode)
         if args.local_rank not in [-1, 0] and mode == "train":
             torch.distributed.barrier()  # Make sure only the first process in distributed training process the dataset, and the others will use the cache
 
@@ -249,10 +248,11 @@ def convert_examples_to_features(
         assert len(input_ids) == max_seq_length
         assert len(input_mask) == max_seq_length
         assert len(segment_ids) == max_seq_length
+        print('label_length')
+        print(len(label_ids))
         assert len(label_ids) == max_seq_length
         assert len(token_boxes) == max_seq_length
         # check length of visual_feature
-        print(len(visual_features))
         assert len(visual_features) == max_seq_length
 
         if ex_index < 5:
