@@ -188,7 +188,7 @@ def convert_examples_to_features(
         else:
             tokens = [cls_token] + tokens
             token_boxes = [cls_token_box] + token_boxes
-            visual_features = [[0]*2048] + actual_bboxes
+            visual_features = [[0]*2048] + visual_features
             label_ids = [pad_token_label_id] + label_ids
             segment_ids = [cls_token_segment_id] + segment_ids
 
