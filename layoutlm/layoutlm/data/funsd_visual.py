@@ -170,6 +170,8 @@ def convert_examples_to_features(
             if len(label_ids)!=len(visual_features):
                 print('different attention!')
                 print(len(label_ids),len(visual_features))
+                print(label_ids)
+                print(token_boxes)
             len_tokens+=len(word_tokens)
         print(len_tokens)
         print(len(label_ids))
