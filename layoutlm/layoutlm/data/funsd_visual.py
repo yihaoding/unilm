@@ -155,7 +155,7 @@ def convert_examples_to_features(
         label_ids = []
         # add visual_features list to test the performance of adding visual features extracted from Resnet101
         visual_features = []
-        
+        len_tokens = 0
         for word, label, box, visual_feature in zip(
             example.words, example.labels, example.boxes, example.visual_features
         ):
@@ -168,8 +168,9 @@ def convert_examples_to_features(
             print(len([label_map[label]]))
             label_ids.extend([label_map[label]])
             label_ids.extend([pad_token_label_id] * (len(word_tokens) - 1))
+            len_tokens+=len(word_tokens)
         print(len(label_ids))
-        print(len(visual_features))
+        print(len(word_tokens))
         # Account for [CLS] and [SEP] with "- 2" and with "- 3" for RoBERTa.
         special_tokens_count = 3 if sep_token_extra else 2
         if len(tokens) > max_seq_length - special_tokens_count:
