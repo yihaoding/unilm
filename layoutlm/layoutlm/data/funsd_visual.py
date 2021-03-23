@@ -138,7 +138,7 @@ def convert_examples_to_features(
         `cls_token_segment_id` define the segment id associated to the CLS token (0 for BERT, 2 for XLNet)
     """
 
-    label_map = {label: i for i, label in enumerate(label_list)}
+    label_map = {'O':0,'answer':1,'header':2,'question':3,'other':4}
 
     features = []
     for (ex_index, example) in enumerate(examples):
@@ -167,7 +167,6 @@ def convert_examples_to_features(
             # Use the real label id for the first token of the word, and padding ids for the remaining tokens
             label_ids.extend([label_map[label]])
             label_ids.extend([pad_token_label_id] * (len(word_tokens) - 1))
-            
             
         # Account for [CLS] and [SEP] with "- 2" and with "- 3" for RoBERTa.
         special_tokens_count = 3 if sep_token_extra else 2
