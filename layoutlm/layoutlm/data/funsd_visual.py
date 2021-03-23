@@ -172,6 +172,9 @@ def convert_examples_to_features(
                 print(len(label_ids),len(visual_features))
                 print(label_ids)
                 print(token_boxes)
+                print(tokens)
+                print(file_name)
+                break
             len_tokens+=len(word_tokens)
         print(len_tokens)
         print(len(label_ids))
